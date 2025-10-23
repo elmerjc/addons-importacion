@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View wizard.inventory.import form -->
+    <record id="view_wizard_inventory_import_form" model="ir.ui.view">
+        <field name="name">view.wizard.inventory.import.form</field>
+        <field name="model">wizard.inventory.import</field>
+        <field name="arch" type="xml">
+            <form string="Wizard Inventory Import">
+                <group>
+                    <group>
+                        <field name="date"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="import_option" widget="radio"/>
+                        <field name="serial_lot"/>
+                    </group>
+                    <group>
+                        <field name="product_type" widget="radio"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="file"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_import" string="Importar" type="object" class="oe_highlight"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action wizard.inventory.import -->
+    <record id="action_wizard_inventory_import" model="ir.actions.act_window">
+        <field name="name">Importar Inventario de Productos</field>
+        <field name="res_model">wizard.inventory.import</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_wizard_inventory_import_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_inventory_group_form" model="ir.ui.view">
+        <field name="name">stock.inventory.form.view</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock_inventory.view_inventory_group_form"/>
+        <field name="arch" type="xml">
+            <button name="action_state_to_in_progress" position="after">
+                <button
+                    name="%(action_wizard_inventory_import)d"
+                    string="Importar Productos desde Excel"
+                    type="action"
+                    class="oe_highlight"
+                    invisible="state in ('in_progress', 'done')"
+                />
+            </button>
+        </field>
+    </record>
+
+</odoo>

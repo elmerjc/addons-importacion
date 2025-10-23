@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Importación de Productos',
+    'summary': "Importa productos con o sin series y stock desde CSV/Excel",
+    'description': "Importa productos con o sin series y stock desde CSV/Excel",
+    'version': '1.0.0',
+    'author': 'takana.cloud',
+    'website': 'https://takana.cloud',
+    'support': 'elmerjc@gmail.com',
+    'category': 'Warehouse',
+    'depends': [
+        'base',
+        'product',
+        'stock',
+        'sh_message',
+        'invoice_report',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'wizard/product_import_views.xml',
+        'wizard/product_variant_import_views.xml',
+        'views/product_views.xml',
+    ],
+    'images': [],
+    'sequence': 1,
+    'installable' : True,
+    'aplication' : True,
+    'auto_install': False,
+    'license': 'AGPL-3',
+}

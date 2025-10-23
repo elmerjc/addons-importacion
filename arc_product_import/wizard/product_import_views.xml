@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_product_import_form" model="ir.ui.view">
+        <field name="name">wizard.product.import.form.view</field>
+        <field name="model">wizard.product.import</field>
+        <field name="arch" type="xml">
+            <form string="Sincronización de Productos">
+                <group>
+                    <group>
+                        <field name="company_id" readonly="True"/>
+                        <field name="import_action"/>
+                        <field name="update"/>
+                    </group>
+                    <group>
+                        <field name="product_type"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="import_option" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name="file"/>
+                    </group>
+                </group>
+                <group string="Datos a actualizar" invisible="not update">
+                    <group>
+                        <field name="field_name"/>
+                        <field name="field_cost"/>
+                        <field name="field_price"/>
+                        <field name="field_category"/>
+                        <field name="field_model"/>
+                        <field name="field_tecnology"/>
+                        <field name="field_default_code"/>
+                        <field name="field_tracking"/>
+                        <field name="field_minicode"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_sync" string="Sincronizar" type="object" class="oe_highlight"  invisible="import_action == 'reportproduct'"/>
+                    <button name="action_export" string="Exportar" type="object" class="oe_highlight" invisible="import_action == 'sync'"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_import_product" model="ir.actions.act_window">
+        <field name="name">Sincronizar Productos</field>
+        <field name="res_model">wizard.product.import</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_product_import_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_wizard_import" 
+    	name="Sincronizar" 
+    	parent="stock.menu_stock_warehouse_mgmt" 
+    	sequence="31"/>
+    
+    <menuitem id="menu_wizard_product_import" 
+    	name="Sincronizar Productos" 
+    	parent="menu_wizard_import" 
+    	action="action_wizard_import_product" 
+    	sequence="1"/>
+
+</odoo>

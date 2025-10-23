@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_json_rpc_manager,access.son.rpc.manager,model_json_rpc,base.group_erp_manager,1,1,1,1
+access_json_rpc_log_manager,access.son.rpc.log.manager,model_json_rpc_log,base.group_erp_manager,1,1,1,1
+access_sync_data_wizard_manager,access.sync.data.wizard.manager,model_sync_data_wizard,base.group_erp_manager,1,1,1,1

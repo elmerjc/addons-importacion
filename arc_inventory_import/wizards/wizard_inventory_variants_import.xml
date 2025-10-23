@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista del formulario para el asistente de importación -->
+    <record id="view_wizard_inventory_variants_import_form" model="ir.ui.view">
+        <field name="name">wizard.inventory.variants.import.form</field>
+        <field name="model">wizard.inventory.variants.import</field>
+        <field name="arch" type="xml">
+            <form string="Importar Inventario">
+                <group>
+                    <field name="file_data" filename="file_name"/>
+                    <field name="location_id"/>
+                </group>
+                <footer>
+                    <button name="action_import_inventory" string="Importar" type="object" class="oe_highlight"/>
+                    <button string="Cancelar" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción de ventana para abrir el asistente -->
+    <record id="action_wizard_inventory_variants_import" model="ir.actions.act_window">
+        <field name="name">Importar Inventario de Variantes</field>
+        <field name="res_model">wizard.inventory.variants.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_inventory_variants_group_form" model="ir.ui.view">
+        <field name="name">stock.inventory.form.view</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock_inventory.view_inventory_group_form"/>
+        <field name="arch" type="xml">
+            <button name="action_state_to_in_progress" position="after">
+                <button
+                    name="%(action_wizard_inventory_variants_import)d"
+                    string="Importar Variantes desde Excel"
+                    type="action"
+                    class="oe_highlight"
+                    invisible="state in ('in_progress', 'done')"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_sync_data_wizard" model="ir.ui.view">
+        <field name="name">sync.data.wizard</field>
+        <field name="model">sync.data.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Sincronizar datos externos">
+                <group>
+                    <group>
+                        <field name="start_date" />
+                    </group>
+                    <group>
+                        <field name="end_date" />
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="update_record" />
+                        <field name="current_company_id" required="True"/>
+                        <field name="company_id" required="True"/>
+                        <field name="res_model" invisible="True" />
+                        <field name="res_id" invisible="True" />
+                        <field name="rpc_model" />
+                        <field name="filter_name" />
+                    </group>
+                    <group>
+                        <field name="version_origin" />
+                        <field name="current_version" />
+                        <field name="location_id" 
+                            options="{'no_create_edit': True, 'no_open': True, 'no_create': True}"
+                            domain="[('usage','=','internal')]" required="rpc_model == 'stock.lot'"/>
+                        <field name="tax_id" required="rpc_model != 'stock.lot'"/>
+                        <field name="auto_picking" />
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="start_record" />
+                    </group>
+                    <group>
+                        <field name="end_record" />
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="offset" />
+                    </group>
+                    <group>
+                        <field name="limit" />
+                        <field name="chunk_size" />
+                    </group>
+                </group>
+                <footer>
+                    <button class="btn-primary" name="action_sync" string="Sincronizar" type="object"/>
+                    <button class="btn-default" special="cancel" string="Cancelar" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_data_wizard" model="ir.actions.act_window">
+        <field name="name">Sincronizar datos externos</field>
+        <field name="res_model">sync.data.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

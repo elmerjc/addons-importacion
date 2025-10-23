@@ -1,0 +1,122 @@
+<odoo>
+    <data>
+        <record id="view_json_rpc_tree" model="ir.ui.view">
+            <field name="name">json.rpc.tree</field>
+            <field name="model">json.rpc</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Conexión externa">
+                    <field name="name" />
+                    <field name="rpc_host" />
+                    <field name="rpc_port" />
+                    <field name="rpc_version" />
+                    <field name="rpc_database" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_json_rpc_form" model="ir.ui.view">
+            <field name="name">json.rpc.form</field>
+            <field name="model">json.rpc</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Conexión externa">
+                	<header>
+                        <button
+                            name="%(action_sync_data_wizard)d"
+                            string="Sincronizar"
+                            type="action"
+                            class="oe_highlight"
+                        />
+                        <button
+                            name="action_test_connection"
+                            string="Probar Conexión"
+                            type="object"
+                            class="oe_highlight"
+                        />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre de la conexión..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="rpc_host"/>
+	                            <field name="rpc_port"/>
+                                <field name="rpc_version"/>
+	                            <field name="rpc_database"/>
+	                            <field name="rpc_user"/>
+	                            <field name="rpc_password" password="True"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <field name="log_ids" readonly="True">
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group name="information" string="Información">
+                                                    <field name="rpc_id" invisible="True" />
+                                                    <field name="date" invisible="True" />
+                                                    <field name="date_issue" />
+                                                    <field name="name" />
+                                                </group>
+                                            </group>
+                                            <notebook name="other_info">
+                                                <page name="name" string="JSON">
+                                                    <field name="json_data" />
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+                                    <tree>
+                                        <field name="rpc_id" column_invisible="True" />
+                                        <field name="date" column_invisible="True" />
+                                        <field name="date_issue" />
+                                        <field name="name" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_json_rpc_search" model="ir.ui.view">
+            <field name="name">json.rpc.search</field>
+            <field name="model">json.rpc</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="rpc_database"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_json_rpc" model="ir.actions.act_window">
+            <field name="name">Configurar conexión externa</field>
+            <field name="res_model">json.rpc</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_json_rpc_tree"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Configure una conexión externa para sincronizar datos.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_json_rpc" 
+        	name="Conexión Externa" 
+        	parent="base.menu_custom"/>
+        
+        <menuitem id="menu_setting_json_rpc"
+        	parent="menu_json_rpc" 
+        	action="action_json_rpc" />
+    </data>
+</odoo>
